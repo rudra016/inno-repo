@@ -22,7 +22,7 @@ Hesitaless is a mobile application designed to enhance your vocabulary through q
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your_username/hesitaless.git
+   git clone https://github.com/rudra016/inno-repo.git
 2. cd hesitaless
 3. npm install
 4. npm run web/npx expo start
