@@ -23,7 +23,7 @@ const GeminiChat = () => {
 
   useEffect(() => {
     const startChat = async () => {
-      const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('AIzaSyDxTSw2W6OMQAQZxIhkk4WvCMpcToEejTw');
+      const genAI = new GoogleGenerativeAI.GoogleGenerativeAI();
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       const prompt = "Give 5 Vocabulary words. Only words no definition. If asked any other question, only answer in 2 lines.You never answer in bullet points.";
       const result = await model.generateContent(prompt);
@@ -53,7 +53,7 @@ const GeminiChat = () => {
     const userMessage = { text: userInput, user: true };
     setMessages([...messages, userMessage]);
 
-    const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('AIzaSyDxTSw2W6OMQAQZxIhkk4WvCMpcToEejTw');
+    const genAI = new GoogleGenerativeAI.GoogleGenerativeAI();
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const prompt = userMessage.text;
     const result = await model.generateContent(prompt);
