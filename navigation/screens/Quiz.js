@@ -17,30 +17,90 @@ export default function Quiz ({ xp, updateXP }) {
   const quizData = [
     {
       question: 'What is the meaning of "aberration"?',
-      options: ['A deviation from what is normal or expected', 'An extreme dislike of something', 'A fast and intense movement', 'A small creature that feeds on blood'],
+      options: [ 'An extreme dislike of something', 'A deviation from what is normal or expected', 'A fast and intense movement', 'A small creature that feeds on blood'],
       answer: 'A deviation from what is normal or expected',
     },
     {
       question: 'What is the meaning of "cacophony"?',
-      options: ['A mixture of various sounds, especially harsh and unpleasant ones', 'A sudden, violent, and illegal seizure of power from a government', 'A state of being unable to remember what happened or of being unable to think clearly', 'A small, decorative box, typically made of metal or wood, in which you keep jewellery or other valuable objects'],
+      options: [ 'A sudden, violent, and illegal seizure of power from a government', 'A state of being unable to remember what happened or of being unable to think clearly', 'A mixture of various sounds, especially harsh and unpleasant ones', 'A small, decorative box, typically made of metal or wood, in which you keep jewellery or other valuable objects'],
       answer: 'A mixture of various sounds, especially harsh and unpleasant ones',
     },
     {
       question: 'What is the meaning of "ephemeral"?',
-      options: ['Lasting for a very short time', 'Having a harmful effect, especially in a gradual or subtle way', 'Lacking energy or enthusiasm', 'Deep, resonant sound'],
+      options: [ 'Having a harmful effect, especially in a gradual or subtle way', 'Lasting for a very short time','Lacking energy or enthusiasm', 'Deep, resonant sound'],
       answer: 'Lasting for a very short time',
     },
     {
       question: 'What is the meaning of "gregarious"?',
-      options: ['Fond of company; sociable', 'Concerned with or relating to the soul', 'Continuing or occurring again and again', 'Feeling or expressing pain or sorrow for sins or offenses'],
+      options: [ 'Concerned with or relating to the soul', 'Continuing or occurring again and again', 'Fond of company; sociable', 'Feeling or expressing pain or sorrow for sins or offenses'],
       answer: 'Fond of company; sociable',
+    },
+    {
+      question: 'What is the meaning of "eloquent"?',
+      options: ['Fluent or persuasive in speaking or writing', 'Showing a lack of respect or seriousness', 'Very obvious and intentional; not hidden', 'Pleasing and satisfactory'],
+      answer: 'Fluent or persuasive in speaking or writing',
+    },
+    {
+      question: 'What is the meaning of "serendipity"?',
+      options: ['The occurrence and development of events by chance in a happy or beneficial way', 'A state of being calm, peaceful, and untroubled', 'The ability to find something nice in every situation', 'A feeling of uncertainty or lack of confidence'],
+      answer: 'The occurrence and development of events by chance in a happy or beneficial way',
+    },
+    {
+      question: 'What is the meaning of "ubiquitous"?',
+      options: [ 'Highly concerned with material values and comfortable living', 'Present, appearing, or found everywhere', 'Easily frightened or alarmed', 'Producing a lot of something in a small space'],
+      answer: 'Present, appearing, or found everywhere',
+    },
+    {
+      question: 'What is the meaning of "quixotic"?',
+      options: ['Exceedingly idealistic; unrealistic and impractical', 'Feeling or showing sorrow and regret for having done wrong; repentant', 'Relating to or involving an activity done for enjoyment when not working', 'Having or showing a great desire to possess something, typically something belonging to someone else'],
+      answer: 'Exceedingly idealistic; unrealistic and impractical',
+    },
+    {
+      question: 'What is the meaning of "zenith"?',
+      options: ['The time at which something is most powerful or successful', 'The point in the sky or celestial sphere directly above an observer', 'The highest point reached by a celestial or other object', 'The action or fact of setting someone free from imprisonment, slavery, or oppression; release'],
+      answer: 'The highest point reached by a celestial or other object',
+    },
+    {
+      question: 'What is the meaning of "quagmire"?',
+      options: [ 'A large, hairy spider with a venomous bite', 'A soft boggy area of land that gives way underfoot', 'A small, fast mammal that feeds on insects', 'A feeling of worry or nervousness, especially about something that may happen'],
+      answer: 'A soft boggy area of land that gives way underfoot',
+    },
+    {
+      question: 'What is the meaning of "zenith"?',
+      options: ['The highest point reached by a celestial or other object', 'The point in the sky or celestial sphere directly above an observer', 'The time at which something is most powerful or successful', 'The action or fact of setting someone free from imprisonment, slavery, or oppression; release'],
+      answer: 'The highest point reached by a celestial or other object',
+    },
+    {
+      question: 'What is the meaning of "quagmire"?',
+      options: ['A soft boggy area of land that gives way underfoot', 'A large, hairy spider with a venomous bite', 'A small, fast mammal that feeds on insects', 'A feeling of worry or nervousness, especially about something that may happen'],
+      answer: 'A soft boggy area of land that gives way underfoot',
+    },
+    {
+      question: 'What is the meaning of "ubiquitous"?',
+      options: ['Present, appearing, or found everywhere', 'Highly concerned with material values and comfortable living', 'Easily frightened or alarmed', 'Producing a lot of something in a small space'],
+      answer: 'Present, appearing, or found everywhere',
+    },
+    {
+      question: 'What is the meaning of "eloquent"?',
+      options: ['Fluent or persuasive in speaking or writing', 'Showing a lack of respect or seriousness', 'Very obvious and intentional; not hidden', 'Pleasing and satisfactory'],
+      answer: 'Fluent or persuasive in speaking or writing',
+    },
+    {
+      question: 'What is the meaning of "serendipity"?',
+      options: ['The occurrence and development of events by chance in a happy or beneficial way', 'A state of being calm, peaceful, and untroubled', 'The ability to find something nice in every situation', 'A feeling of uncertainty or lack of confidence'],
+      answer: 'The occurrence and development of events by chance in a happy or beneficial way',
+    },
+    {
+      question: 'What is the meaning of "quixotic"?',
+      options: ['Exceedingly idealistic; unrealistic and impractical', 'Feeling or showing sorrow and regret for having done wrong; repentant', 'Relating to or involving an activity done for enjoyment when not working', 'Having or showing a great desire to possess something, typically something belonging to someone else'],
+      answer: 'Exceedingly idealistic; unrealistic and impractical',
     },
   ];
 
   useEffect(() => {
     const fetchGeminiResponse = async () => {
       try {
-        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('');
+        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI();
         const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
         const prompt = `Explain in one line ${quizData[currentQuestion]?.answer}.`;
         const result = await model.generateContent(prompt);
@@ -70,7 +130,7 @@ export default function Quiz ({ xp, updateXP }) {
       handleNextQuestion(); // Add this line to move to the next question when the correct option is selected
     } else { 
       try {
-        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('');
+        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI();
         const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
         const prompt = `Explain in one line ${answer}.`;
         const result = await model.generateContent(prompt);
