@@ -21,13 +21,11 @@ const GeminiChat = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showStopIcon, setShowStopIcon] = useState(false);
 
-
-
   useEffect(() => {
     const startChat = async () => {
       const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('AIzaSyDxTSw2W6OMQAQZxIhkk4WvCMpcToEejTw');
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-      const prompt = "Give 5 Vocabulary words. Only words no definition. If asked any other question, only answer in 2 lines, and never answer in bullet points.";
+      const prompt = "Give 5 Vocabulary words. Only words no definition. If asked any other question, only answer in 2 lines.You never answer in bullet points.";
       const result = await model.generateContent(prompt);
       const response = result.response;
       const text = response.text();
@@ -65,9 +63,6 @@ const GeminiChat = () => {
     setLoading(false);
     setUserInput("");
 
-    // if (text) {
-    //   Speech.speak(text);
-    // }
     if (text && !isSpeaking) {
       Speech.speak(text);
       setIsSpeaking(true);
@@ -76,24 +71,26 @@ const GeminiChat = () => {
   };
 
   const toggleSpeech = () => {
-    console.log("isSpeaking", isSpeaking);
     if (isSpeaking) {
       Speech.stop();
       setIsSpeaking(false);
+      setShowStopIcon(false); // Hiding the stop icon when speech is stopped
     } else {
       Speech.speak(messages[messages.length - 1].text);
       setIsSpeaking(true);
+      setShowStopIcon(true); // Showing the stop icon when speech starts
     }
   };
 
   const ClearMessage = () => {
-    setMessages("");
+    setMessages([]);
     setIsSpeaking(false);
+    setShowStopIcon(false); // Hiding the stop icon when messages are cleared
   };
 
   const renderMessage = ({ item }) => (
-    <View style={styles.messageContainer}>
-      <Text style={[styles.messageText, item.user && styles.userMessage]}>
+    <View style={[styles.messageContainer, item.user ? styles.userMessage : styles.botMessage]}>
+      <Text style={[styles.messageText, item.user && styles.userMessageText]}>
         {item.text}
       </Text>
     </View>
@@ -104,7 +101,7 @@ const GeminiChat = () => {
       <FlatList
         data={messages}
         renderItem={renderMessage}
-        keyExtractor={(item) => item.text}
+        keyExtractor={(item, index) => index.toString()}
         inverted
       />
       <View style={styles.inputContainer}>
@@ -113,7 +110,7 @@ const GeminiChat = () => {
             <FontAwesome
               name="microphone-slash"
               size={24}
-              color="white"
+              color="black"
               style={{
                 justifyContent: "center",
                 alignItems: "center",
@@ -123,7 +120,7 @@ const GeminiChat = () => {
             <FontAwesome
               name="microphone"
               size={24}
-              color="white"
+              color="black"
               style={{
                 justifyContent: "center",
                 alignItems: "center",
@@ -137,38 +134,40 @@ const GeminiChat = () => {
           value={userInput}
           onSubmitEditing={sendMessage}
           style={styles.input}
-          placeholderTextColor="#fff"
+          placeholderTextColor="black"
         />
         {
           //show stop icon only when speaking
           showStopIcon && (
             <TouchableOpacity style={styles.stopIcon} onPress={ClearMessage}>
-              <Entypo name="controller-stop" size={24} color="white" />
+              <Entypo name="controller-stop" size={24} color="black" />
             </TouchableOpacity>
           )
         }
-        {/* {loading && <ActivityIndicator size="large" color="black" />} */}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#ffff", marginTop: 50 },
-  messageContainer: { padding: 10, marginVertical: 5 },
-  messageText: { fontSize: 16 },
+  container: { flex: 1, backgroundColor: "#F0F0F0" },
+  messageContainer: { padding: 15, marginVertical: 5, maxWidth: "80%" },
+  messageText: { fontSize: 16, color: "black" },
+  userMessage: { alignSelf: "flex-end", backgroundColor: "#DCF8C6" },
+  botMessage: { alignSelf: "flex-start", backgroundColor: "#E5E5EA" },
+  userMessageText: { color: "black" },
   inputContainer: { flexDirection: "row", alignItems: "center", padding: 10 },
   input: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#131314",
+    backgroundColor: "#EEEAEF",
     borderRadius: 10,
     height: 50,
-    color: "white",
+    color: "black",
   },
   micIcon: {
     padding: 10,
-    backgroundColor: "#131314",
+    backgroundColor: "#EEEAEF",
     borderRadius: 25,
     height: 50,
     width: 50,
@@ -178,7 +177,7 @@ const styles = StyleSheet.create({
   },
   stopIcon: {
     padding: 10,
-    backgroundColor: "#131314",
+    backgroundColor: "#EEEAEF",
     borderRadius: 25,
     height: 50,
     width: 50,
