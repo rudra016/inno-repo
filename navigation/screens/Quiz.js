@@ -40,7 +40,7 @@ export default function Quiz ({ xp, updateXP }) {
   useEffect(() => {
     const fetchGeminiResponse = async () => {
       try {
-        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('AIzaSyDxTSw2W6OMQAQZxIhkk4WvCMpcToEejTw');
+        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('');
         const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
         const prompt = `Explain in one line ${quizData[currentQuestion]?.answer}.`;
         const result = await model.generateContent(prompt);
@@ -70,7 +70,7 @@ export default function Quiz ({ xp, updateXP }) {
       handleNextQuestion(); // Add this line to move to the next question when the correct option is selected
     } else { 
       try {
-        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('AIzaSyDxTSw2W6OMQAQZxIhkk4WvCMpcToEejTw');
+        const genAI = new GoogleGenerativeAI.GoogleGenerativeAI('');
         const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
         const prompt = `Explain in one line ${answer}.`;
         const result = await model.generateContent(prompt);
